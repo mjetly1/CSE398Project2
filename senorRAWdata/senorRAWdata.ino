@@ -4,9 +4,10 @@
 #include <utility/imumaths.h>
   
 Adafruit_BNO055 bno = Adafruit_BNO055(55);
+int aTemp = 0;
 
 void setup(void) 
-{
+{  
   Serial.begin(9600);
   Serial.println("Orientation Sensor Test"); Serial.println("");
   
@@ -19,22 +20,52 @@ void setup(void)
   }
   
   delay(1000);
-
+    
   bno.setExtCrystalUse(true);
 }
 
 void loop(void) 
 {
-  imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
+  /* Get a new sensor event */ 
+  sensors_event_t event; 
+  bno.getEvent(&event);
+
+  /*Euler orientation angle*/
+  imu::Vector<3> accel = bno.getVector(Adafruit_BNO055::VECTOR_LINEARACCEL);
   
-  /* Display the floating point data */
+  /* Display the floating point data
   Serial.print("X: ");
-  Serial.print(euler.x());
-  Serial.print(" Y: ");
-  Serial.print(euler.y());
-  Serial.print(" Z: ");
-  Serial.print(euler.z());
+  Serial.print(event.orientation.x, 4);
+  Serial.print("\tY: ");
+  Serial.print(event.orientation.y, 4);
+  Serial.print("\tZ: ");
+  Serial.print(event.orientation.z, 4);
   Serial.println("");
+  */
   
-  delay(100);
+  
+  Serial.print("X: ");
+  Serial.print(accel.x());
+  Serial.print(" Y: ");
+  Serial.print(accel.y());
+  Serial.print(" Z: ");
+  Serial.print(accel.z());
+  
+  
+  /* calculating magnitude of acceleration*/
+  int amag = pow((pow(accel.x(),2)+pow(accel.y(),2)+pow(accel.z(),2)), 0.5);
+  int filterAMag = aTemp * 0.86  + amag * 0.14;
+  
+  Serial.print("Accel Mag: ");
+  Serial.print(amag);
+  
+
+  
+  
+  aTemp = filterAMag;
+
+  Serial.print("Filter: ");
+  Serial.print(filterAMag);
+  Serial.println("");
+
 }
