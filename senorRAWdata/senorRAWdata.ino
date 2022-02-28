@@ -2,9 +2,12 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
+
   
 Adafruit_BNO055 bno = Adafruit_BNO055(55);
 int aTemp = 0;
+float q[40];
+int count = 0;
 
 void setup(void) 
 {  
@@ -43,29 +46,45 @@ void loop(void)
   Serial.println("");
   */
   
-  
-  Serial.print("X: ");
+  /*Display the acceleration points*/
+  /*Serial.print("X: ");
   Serial.print(accel.x());
   Serial.print(" Y: ");
   Serial.print(accel.y());
   Serial.print(" Z: ");
-  Serial.print(accel.z());
+  Serial.print(accel.z());   */
   
   
   /* calculating magnitude of acceleration*/
   int amag = pow((pow(accel.x(),2)+pow(accel.y(),2)+pow(accel.z(),2)), 0.5);
   int filterAMag = aTemp * 0.86  + amag * 0.14;
   
-  Serial.print("Accel Mag: ");
-  Serial.print(amag);
-  
+  /*Serial.print("Accel Mag: ");
+  Serial.print(amag);*/
 
-  
-  
   aTemp = filterAMag;
 
-  Serial.print("Filter: ");
+  /*Serial.print("  Filter: ");
   Serial.print(filterAMag);
-  Serial.println("");
+  Serial.println("");*/
 
+  for( int i = 0; i<39 ; i++)
+  {
+    q[i]=q[i+1];
+    //Serial.print(q[i]);
+  }
+  q[39] = amag;
+
+  if (amag > 2.5 || count > 0) 
+  {
+    count++;
+  }
+  if(count == 20)
+  {
+    for( int i = 0; i<39 ; i++)
+    {
+      Serial.print(q[i]);
+    }
+    count = 0;
+  }
 }
