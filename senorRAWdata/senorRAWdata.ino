@@ -61,7 +61,7 @@ void loop(void)
 
   /*Serial.print("Accel Mag: ");
   Serial.print(amag);*/
-
+  Serial.write(amag);
   aTemp = filterAMag;
 
   /*Serial.print("  Filter: ");
@@ -75,7 +75,7 @@ void loop(void)
   }
   q[39] = amag;
 
-  if (amag > 2.5 || count > 0)
+  if (filterAMag > 2.5 || count > 0)
   {
     count++;
   }
@@ -84,6 +84,7 @@ void loop(void)
     for( int i = 0; i<39 ; i++)
     {
       Serial.print(q[i]);
+      Serial.print(" ");
     }
     count = 0;
   }
