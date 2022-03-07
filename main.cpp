@@ -5,7 +5,7 @@ using namespace LibSerial;
 
 int main()
 {
-
+    char c;
      // Instantiate a Serial Port and a Serial Stream object.
      SerialPort serial_port;
 
@@ -19,7 +19,7 @@ int main()
      char read_byte_2 = 'B';
 
      // Read a character.
-     serial_port.ReadByte(read_byte_1, 1);
+     serial_port.ReadByte(c, 1);
 
      std::cout << "serial_port read:   " << read_byte_1 << std::endl;
 
