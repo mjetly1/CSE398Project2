@@ -21,11 +21,8 @@ int main()
      char read_byte_1 = 'A';
      char read_byte_2 = 'B';
 
-     // Write a character.
-     serial_port.Write(&write_byte_1, 1);
-
      // Read a character.
-     serial_port.Read(read_byte_1, 1);
+     serial_port.ReadByte(read_byte_1, 1);
 
      std::cout << "serial_port read:   " << read_byte_1 << std::endl;
 
