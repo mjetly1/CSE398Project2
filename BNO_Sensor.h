@@ -1,6 +1,6 @@
 #include <SerialPort.h>
 
-using namespace LibSerial ; 
+using namespace SerialPort ; 
 
 void BNO_Sensor()
 {
