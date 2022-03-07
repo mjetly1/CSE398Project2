@@ -2,7 +2,7 @@
 
 
 int main(){
-  using namespace LibSerial;
+  using namespace libserial;
 
   int main()
   {
