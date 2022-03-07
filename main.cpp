@@ -13,11 +13,8 @@ int main()
      serial_port.Open( "/dev/ttyUSB0" );
 
      // Set the baud rates.
-     serial_port.SetBaudRate( BaudRate::BAUD_115200 );
-
-     char write_byte_1 = 'a';
-     char write_byte_2 = 'b';
-
+     serial_port.SetBaudRate( BaudRate::BAUD__115200 );
+     
      char read_byte_1 = 'A';
      char read_byte_2 = 'B';
 
