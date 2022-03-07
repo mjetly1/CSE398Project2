@@ -1,11 +1,9 @@
-#include <SerialPort.h>
+#include <libserial.SerialPort.h>
 
+using namespace LibSerial;
 
 int main(){
-  using namespace libserial;
 
-  int main()
-  {
      // Instantiate a Serial Port and a Serial Stream object.
      SerialPort serial_port;
 
