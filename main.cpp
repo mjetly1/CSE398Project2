@@ -1,9 +1,7 @@
-#include <libserial/SerialPort.h>
+#include <SerialPort.h>
 
 
 int main(){
-  #include <libserial/SerialPort.h>
-
   using namespace LibSerial;
 
   int main()
