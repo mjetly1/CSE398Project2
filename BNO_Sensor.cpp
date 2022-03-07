@@ -10,7 +10,7 @@ void::BNO_Sensor initialize()
 
 void::BNO_Sensor Reading()
 {
-  float amag;
+  char[] amag;
   SerialPort sensor;
   amag = ReadByte(amag,0)
 }
