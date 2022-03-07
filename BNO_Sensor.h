@@ -1,5 +1,5 @@
-#include <libserial/SerialPort.h>
-#include <libserial/SerialStream.h>
+#include <SerialPort.h>
+#include <SerialStream.h>
 
 using namespace LibSerial
 
