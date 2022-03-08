@@ -6,7 +6,7 @@ int main()
 {
     char c;
      // Instantiate a Serial Port and a Serial Stream object.
-     SerialPort serial_port;
+     LibSerial::SerialPort serial_port;
 
      // Open the hardware serial ports.
      serial_port.Open( "/dev/ttyUSB0" );
