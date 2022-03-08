@@ -1,7 +1,6 @@
 #include <SerialPort.h>
 #include<iostream>
 #include<ostream>
-using namespace LibSerial;
 
 int main()
 {
