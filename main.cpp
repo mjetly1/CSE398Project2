@@ -3,6 +3,7 @@
 #include<iostream>
 #include<ostream>
 
+use namespace LibSerial 
 int main()
 {
     char c;
