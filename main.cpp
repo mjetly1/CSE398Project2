@@ -1,4 +1,5 @@
 #include <libserial/SerialPort.h>
+#include <libserial/SerialStream.h>
 #include<iostream>
 #include<ostream>
 
