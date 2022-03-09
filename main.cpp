@@ -28,4 +28,5 @@ int main(void)
 
      // Close the Serial Port and Serial Stream.
      serial_port.Close();
+     return 0;
 }
