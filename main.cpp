@@ -1,4 +1,4 @@
-#include "COB.h"
+#include "COBSdecoder.h"
 #include <libserial/SerialPort.h>
 #include <libserial/SerialStream.h>
 #include <iostream>
