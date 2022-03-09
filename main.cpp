@@ -18,6 +18,7 @@ int main(void) {
 	LibSerial::SerialPort arduino;
 	arduino.Open("/dev/ttyS0");
 	arduino.SetBaudRate(LibSerial::BaudRate::BAUD_9600);
+    arduino.SetBaudRate(LibSerial::FlowControl::FLOW_CONTROL_NONE);
 	uint8_t c;
 	receive_packet pkt;
 	cobSerial myCOB;
