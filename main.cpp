@@ -1,12 +1,12 @@
 #include <libserial/SerialPort.h>
 #include <libserial/SerialStream.h>
-#include<iostream>
-#include<ostream>
+#include <iostream>
+#include <ostream>
 #include "BNO_Sensor.h"
 
 
 using namespace LibSerial;
-int main()
+int main(void)
 {
     char c;
      // Instantiate a Serial Port and a Serial Stream object.
