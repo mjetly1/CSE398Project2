@@ -4,7 +4,8 @@
 #include<ostream>
 #include "BNO_Sensor.h"
 
-using namespace LibSerial
+
+using namespace LibSerial;
 int main()
 {
     char c;
