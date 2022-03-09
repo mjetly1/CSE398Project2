@@ -1,4 +1,4 @@
-#include "COBSdecoder.h"
+#include "COB.h"
 #include <cstring>
 
 using namespace std;

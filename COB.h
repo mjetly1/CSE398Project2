@@ -14,3 +14,5 @@ class cobSerial {
 		char buff[constMaxPacketSize];
 		int buffIdx;
 		char decodedBuff[constMaxPacketSize];
+        int decodeIdx;
+}
