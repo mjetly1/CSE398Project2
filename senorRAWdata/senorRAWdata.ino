@@ -9,7 +9,7 @@ Adafruit_BNO055 bno = Adafruit_BNO055(55);
 float aTemp = 0;       //Temporary Acceleration Magnitude Data
 float accel[40];       //Array of Accelration Data
 float pressure[40];    //Array of Pressure Data
-float orientation;          //Orientation Data
+float euler;          //euler Data
 int pressureADC;       //ADC value for Pressure Sensor
 float Force;           //Force data
 float pressureGrams;   //Force data converted to pressure in grams
@@ -51,18 +51,16 @@ void loop(void)
   bno.getEvent(&event);
 
   /*Linear Acceleration*/
+  imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
   imu::Vector<3> accel = bno.getVector(Adafruit_BNO055::VECTOR_LINEARACCEL);
-
-  /*Euler orientation angle*/
-  imu::Vector<3> orientation = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
 
   /* Display the floating point data
   Serial.print("X: ");
-  Serial.print(event.orientation.x, 4);
+  Serial.print(event.euler.x, 4);
   Serial.print("\tY: ");
-  Serial.print(event.orientation.y, 4);
+  Serial.print(event.euler.y, 4);
   Serial.print("\tZ: ");
-  Serial.print(event.orientation.z, 4);
+  Serial.print(event.euler.z, 4);
   Serial.println("");
   */
 
