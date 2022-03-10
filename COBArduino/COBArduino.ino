@@ -8,10 +8,13 @@ Adafruit_BNO055 bno = Adafruit_BNO055(55);
 float aTemp = 0;       //Temporary Acceleration Magnitude Data
 float accel[40];       //Array of Accelration Data
 float pressure[40];    //Array of Pressure Data
-float euler;          //euler Data
 int pressureADC;       //ADC value for Pressure Sensor
 float Force;           //Force data
 float pressureGrams;   //Force data converted to pressure in grams
+float eulerx;          //Euler x-component
+float eulery;          //"    "y-component
+float eulerz;          //"    "z-component
+float checksum;        //Packet Checksum
 const float m = -.561; //Slope of pressure sensor
 const float b = 5.943; //x-interecept of pressure sensor
 
@@ -25,7 +28,7 @@ struct send_packet {
   float orient_yaw;
   float orient_pitch;
   float orient_roll;
-  uint8_t checksum;
+  float checksum;
 };
 
 send_packet pkt;
@@ -60,6 +63,9 @@ void loop()
 
   /*Linear Acceleration*/
   imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
+  eulerx = euler.x();
+  eulery = euler.y();
+  eulerz = euler.z();
   imu::Vector<3> accel = bno.getVector(Adafruit_BNO055::VECTOR_LINEARACCEL);
 
   /* calculating magnitude of acceleration*/
@@ -77,8 +83,8 @@ void loop()
   /*Addes raw amag and pressureGrams data to an array with 40 data points*/
   for( int i = 0; i<39 ; i++)
   {
-    accel[i]=accel[i+1];
-    pressure[i]= pressure[i+1];
+    accel[i] = accel[i+1];
+    pressure[i] = pressure[i+1];
   }
   accel[39] = amag;
   pressure[39] = pressureGrams;
@@ -91,40 +97,32 @@ void loop()
   if(count == 20)
   {
     if (accel[19] > 2.5){
-      Serial.print("Bump");
-
+      pkt.header = 'b';
+      for (int i=0; i<40; i++)
+      {
+        pkt.measurement[i] = accel[i];
+        checksum += accel[i];
+      }
+      pkt.orient_yaw = eulerx;
+      pkt.orient_pitch = eulery;
+      pkt.orient_roll = eulerz;
+      pkt.checksum = checksum;
+      myPacketSerial.send((uint8_t*)&pkt, sizeof(pkt));
     }
     if (pressure[19] > 0.00){
       Serial.print("Push");
+      pkt.header = 'p';
+      for (int i=0; i<40; i++)
+      {
+        pkt.measurement[i] = pressure[i] ;
+        checksum = pressure[i];
+      }
+      pkt.orient_yaw = eulerx;
+      pkt.orient_pitch = eulery;
+      pkt.orient_roll = eulerz;
+      pkt.checksum = checksum;
+      myPacketSerial.send((uint8_t*)&pkt, sizeof(pkt));
     }
-
-
-    for( int i = 0; i<39 ; i++)
-    {
-      //Serial.print(accel[i]);
-      //Serial.print(" ");
-      //Serial.print(pressure[i]);
-      //Serial.print(" ");
-    }
-    count = 0;
-  }
-
-  // dummy header
-  // initialize the measurements
-  // assign floats values
-  // uncalculated checksum for testing transmission
-  // two arbitrary measurements for testing
-  pkt.header = 'z';
-  for (int i=0; i<40; i++)
-    pkt.measurement[i] = i;
-  pkt.orient_yaw = 100;
-  pkt.orient_pitch = 200;
-  pkt.orient_roll = 300;   
-  pkt.checksum = 27;
-  pkt.measurement[0] = 89e-6;
-  pkt.measurement[23] = 4176.43e12;
-
-  myPacketSerial.send((uint8_t*)&pkt, sizeof(pkt));
-  
   delay(2000);
+  }
 }
