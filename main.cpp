@@ -23,7 +23,7 @@ int main(void) {
 	ofstream accelerationOut;
 
 	arduino.Open("/dev/ttyS0");
-	arduino.SetBaudRate(LibSerial::BaudRate::BAUD_9600);
+	arduino.SetBaudRate(LibSerial::BaudRate::BAUD_115200);
   arduino.SetFlowControl(LibSerial::FlowControl::FLOW_CONTROL_NONE);
 	uint8_t c;
 	float caughtChecksum;

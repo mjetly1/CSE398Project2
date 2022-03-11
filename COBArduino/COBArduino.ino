@@ -30,6 +30,7 @@ PacketSerial myPacketSerial;
 
 struct send_packet {
   char header;
+  char pad[3] = {0,0,0};
   float measurement[40];
   float orient_yaw;
   float orient_pitch;
