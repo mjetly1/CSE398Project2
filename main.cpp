@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 using namespace std;
+using namespace LibSerial;
 
 struct receive_packet {
 	char header;
@@ -18,9 +19,9 @@ struct receive_packet {
 };
 
 int main(void) {
-	LibSerial::SerialPort arduino;
+	SerialPort arduino;
 	arduino.Open("/dev/ttyS0");
-	arduino.SetBaudRate(LibSerial::BaudRate::BAUD_115200);
+	arduino.SetBaudRate(BaudRate::BAUD_115200);
   //arduino.SetFlowControl(LibSerial::FlowControl::FLOW_CONTROL_NONE);
 	ofstream pressureOut;
 	ofstream accelerationOut;
