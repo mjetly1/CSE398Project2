@@ -47,7 +47,7 @@ int main(void) {
 
 			}
 			if (caughtChecksum = pkt.checksum){
-				if (pkt.header == 'b){
+				if (pkt.header == 'b'){
 						for(int i = 0 ; i < 40 ; i++){
 							accelerationOut << to.string(pkt.measurement[i]) << ", ";
 						}
@@ -68,8 +68,9 @@ int main(void) {
 					}
 				}
 			}
-		}
-		forceout.close();
-		accout.close();
+
+		pressureout.close();
+		accelerationOut.close();
+	}
 		return 0;
 }
