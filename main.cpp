@@ -42,7 +42,7 @@ int main(void) {
 		pressureOut.close();
 		accelerationOut.close();
 	}
- }
-}
+
+
 		return 0;
 }
