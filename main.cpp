@@ -21,7 +21,7 @@ int main(void) {
 	LibSerial::SerialPort arduino;
 	arduino.Open("/dev/ttyS0");
 	arduino.SetBaudRate(LibSerial::BaudRate::BAUD_115200);
-  arduino.SetFlowControl(LibSerial::FlowControl::FLOW_CONTROL_NONE);
+  //arduino.SetFlowControl(LibSerial::FlowControl::FLOW_CONTROL_NONE);
 	ofstream pressureOut;
 	ofstream accelerationOut;
 	uint8_t c;
