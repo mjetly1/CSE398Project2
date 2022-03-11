@@ -44,13 +44,8 @@ int main(void) {
 			int len = myCOB.getPacket((char*)&pkt);
 			cout << "packet length " << len << endl;
 			cout << "Header: " << pkt.header << " , " << pkt.measurement[0] << endl;
-			cout << "Value: " << pkt.measurement[23] << " , " << int(pkt.checksum) << endl;
-
-			int len = myCOB.getPacket((char*)&pkt);
-			cout << "packet length " << len << endl;
-			cout << "Header: " << pkt.header << " , " << pkt.measurement[0] << endl;
 			for(int i = 0 ; i < 40 ; i++){
-          caughtChecksum += pkt.measurement[i];
+          receiverChecksum += pkt.measurement[i];
 			}
 				if (pkt.header == 'b'){
 						for(int i = 0 ; i < 40 ; i++){
@@ -76,6 +71,7 @@ int main(void) {
 		pressureOut.close();
 		accelerationOut.close();
 	}
+ }
 }
 		return 0;
 }
