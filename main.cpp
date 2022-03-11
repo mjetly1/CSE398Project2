@@ -2,6 +2,7 @@
 #include <libserial/SerialPort.h>
 #include <libserial/SerialStream.h>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -46,8 +47,8 @@ int main(void) {
 
 			}
 			if (caughtChecksum = pkt.checksum){
-				if (pkt.header == "b"){
-						for(int i = 0 l i < 40 ; i++){
+				if (pkt.header == 'b){
+						for(int i = 0 ; i < 40 ; i++){
 							accelerationOut << to.string(pkt.measurement[i]) << ", ";
 						}
 						accelerationOut << to_string(pkt.orient_yaw) << ", ";
@@ -55,19 +56,20 @@ int main(void) {
 						accelerationOut << to_string(pkt.orient_roll) << ", ";
 						accelerationOut << endl;
 					}
-					else if (pkt.header == "p")
-						for(int i = 0 l i < 40 ; i++){
+					else if (pkt.header == 'p'){
+						for(int i = 0 ; i < 40 ; i++){
 							presssureOut << pkt.measurement[i] << ", ";
 						}
 						pressureOut << pkt.orient_yaw << ", "
 						pressureOut << pkt.orient_pitch << ", ";
 						pressureOut << pkt.orient_roll << ", ";
 						pressureOut << endl;
+
+					}
 				}
 			}
 		}
 		forceout.close();
 		accout.close();
-	}
-	return 0;
+		return 0;
 }
