@@ -30,9 +30,9 @@ int main(void) {
 	cobSerial myCOB;
 
 	while (1) {
-		//pressureOut.open("pressure.csv", ios_base::app);
-		//accelerationOut.open("acceleration.csv", ios_base::app);
-		//caughtChecksum = 0;
+		pressureOut.open("pressure.csv", ios_base::app);
+		accelerationOut.open("acceleration.csv", ios_base::app);
+		caughtChecksum = 0;
 
 		if ( arduino.IsDataAvailable() ) {
 			arduino.ReadByte(c, 0);
@@ -45,7 +45,7 @@ int main(void) {
 			cout << "packet length " << len << endl;
 			cout << "Header: " << pkt.header << " , " << pkt.measurement[0] << endl;
 			cout << "Value: " << pkt.measurement[23] << " , " << int(pkt.checksum) << endl;
-			/*
+
 			int len = myCOB.getPacket((char*)&pkt);
 			cout << "packet length " << len << endl;
 			cout << "Header: " << pkt.header << " , " << pkt.measurement[0] << endl;
@@ -69,12 +69,12 @@ int main(void) {
 						pressureOut << pkt.orient_pitch << ", ";
 						pressureOut << pkt.orient_roll << ", ";
 						pressureOut << endl;
-						*/
 
 
 
-		//pressureOut.close();
-		//accelerationOut.close();
+
+		pressureOut.close();
+		accelerationOut.close();
 	}
 }
 		return 0;
