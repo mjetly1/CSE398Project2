@@ -26,7 +26,7 @@ int main(void) {
 	arduino.SetBaudRate(LibSerial::BaudRate::BAUD_115200);
   arduino.SetFlowControl(LibSerial::FlowControl::FLOW_CONTROL_NONE);
 	uint8_t c;
-	float caughtChecksum;
+	float receiverChecksum;
 	receive_packet pkt;
 	cobSerial myCOB;
 
@@ -35,9 +35,10 @@ int main(void) {
 		//accelerationOut.open("acceleration.csv", ios_base::app);
 		//caughtChecksum = 0;
 
-		if (arduino.IsDataAvailable()) {
+		if ( arduino.IsDataAvailable() ) {
 			arduino.ReadByte(c, 0);
 			myCOB.addByte(c);
+			cout << int(c) << endl;
 		}
 
 		if ( myCOB.packetAvail() ) {
