@@ -71,10 +71,11 @@ int main(void) {
 						pressureOut << endl;
 						*/
 
-				}
-			}
-		pressureOut.close();
-		accelerationOut.close();
+
+
+		//pressureOut.close();
+		//accelerationOut.close();
 	}
+}
 		return 0;
 }
