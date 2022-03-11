@@ -34,7 +34,7 @@ int main(void) {
 		pressureOut.open("pressure.csv", ios_base::app);
 		accelerationOut.open("acceleration.csv", ios_base::app);
 		caughtChecksum = 0;
-		
+
 		if (arduino.IsDataAvailable()) {
 			arduino.ReadByte(c, 0);
 			myCOB.addByte(c);
@@ -42,7 +42,6 @@ int main(void) {
 
 		if ( myCOB.packetAvail() ) {
 			int len = myCOB.getPacket((char*)&pkt);
-			cout << endl;
 			cout << "packet length " << len << endl;
 			cout << "Header: " << pkt.header << " , " << pkt.measurement[0] << endl;
 			for(int i = 0 ; i < 40 ; i++){

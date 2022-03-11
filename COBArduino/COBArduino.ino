@@ -1,3 +1,7 @@
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BNO055.h>
+#include <utility/imumaths.h>
 #include <PacketSerial.h>
 
 // Arduino code to test sending a packet
@@ -17,6 +21,8 @@ float eulerz;          //"    "z-component
 float checksum;        //Packet Checksum
 const float m = -.561; //Slope of pressure sensor
 const float b = 5.943; //x-interecept of pressure sensor
+boolean bump = false;
+boolean pres = false;
 
 int count = 0;
 
@@ -32,14 +38,15 @@ struct send_packet {
 };
 
 send_packet pkt;
+send_packet forcePkt;
 
 void setup()
 {
-    Serial1.begin(9600);
+    Serial1.begin(115200);
     myPacketSerial.setStream(&Serial1);
 
     //Our code
-    Serial.begin(9600);
+    Serial.begin(115200);
     Serial.println("Orientation Sensor Test"); Serial.println("");
 
     /* Initialise the sensor */
@@ -86,6 +93,7 @@ void loop()
     accel[i] = accel[i+1];
     pressure[i] = pressure[i+1];
   }
+
   accel[39] = amag;
   pressure[39] = pressureGrams;
 
@@ -94,35 +102,44 @@ void loop()
     count++;
   }
 
-  if(count == 20)
-  {
-    if (accel[19] > 2.5){
-      pkt.header = 'b';
+  if (filterAMag > 2.5){
+    bump = true;
+  }
+
+  if ( pressureGrams > 0.00){
+    pres = true;
+  }
+  if ( bump == true){
+    pkt.header = 'b';
       for (int i=0; i<40; i++)
       {
         pkt.measurement[i] = accel[i];
-        checksum += accel[i];
+        checksum = accel[i] + checksum;
       }
       pkt.orient_yaw = eulerx;
       pkt.orient_pitch = eulery;
       pkt.orient_roll = eulerz;
       pkt.checksum = checksum;
+      bump = false;
       myPacketSerial.send((uint8_t*)&pkt, sizeof(pkt));
-    }
-    if (pressure[19] > 0.00){
-      Serial.print("Push");
-      pkt.header = 'p';
+      count = 0;
+      checksum = 0;
+      delay(2000);
+  }
+  if (pres == true){
+    forcePkt.header = 'p';
       for (int i=0; i<40; i++)
       {
-        pkt.measurement[i] = pressure[i] ;
-        checksum = pressure[i];
+        forcePkt.measurement[i] = pressure[i] ;
+        checksum = pressure[i] + checksum;
       }
-      pkt.orient_yaw = eulerx;
-      pkt.orient_pitch = eulery;
-      pkt.orient_roll = eulerz;
-      pkt.checksum = checksum;
-      myPacketSerial.send((uint8_t*)&pkt, sizeof(pkt));
+      forcePkt.orient_yaw = eulerx;
+      forcePkt.orient_pitch = eulery;
+      forcePkt.orient_roll = eulerz;
+      forcePkt.checksum = checksum;
+      myPacketSerial.send((uint8_t*)&forcePkt, sizeof(forcePkt));
+      count = 0;
+      checksum = 0;
+      delay(2000);
     }
-  delay(2000);
-  }
 }
