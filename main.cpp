@@ -34,9 +34,9 @@ int main(void) {
 		pressureOut.open("pressure.csv", ios_base::app);
 		accelerationOut.open("acceleration.csv", ios_base::app);
 		receiverChecksum = 0;
-	   accelerationOut << (std::string) 4 << ", ";
-						accelerationOut << (std::string) 4 << ", ";
-						accelerationOut << (std::string) 4 << ", ";
+	   accelerationOut << "4" << ", ";
+						accelerationOut << "4" << ", ";
+						accelerationOut << "4" << ", ";
 						accelerationOut << endl;
 
 		pressureOut.close();
