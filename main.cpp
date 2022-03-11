@@ -34,40 +34,10 @@ int main(void) {
 		pressureOut.open("pressure.csv", ios_base::app);
 		accelerationOut.open("acceleration.csv", ios_base::app);
 		receiverChecksum = 0;
-
-		if ( arduino.IsDataAvailable() ) {
-			arduino.ReadByte(c, 0);
-			myCOB.addByte(c);
-			cout << int(c) << endl;
-		}
-
-		if ( myCOB.packetAvail() ) {
-			int len = myCOB.getPacket((char*)&pkt);
-			cout << "packet length " << len << endl;
-			cout << "Header: " << pkt.header << " , " << pkt.measurement[0] << endl;
-			for(int i = 0 ; i < 40 ; i++){
-          receiverChecksum += pkt.measurement[i];
-			}
-				if (pkt.header == 'b'){
-						for(int i = 0 ; i < 40 ; i++){
-							accelerationOut << to_string(pkt.measurement[i]) << ", ";
-						}
-						accelerationOut << to_string(pkt.orient_yaw) << ", ";
-						accelerationOut << to_string(pkt.orient_pitch) << ", ";
-						accelerationOut << to_string(pkt.orient_roll) << ", ";
+	   accelerationOut << (std::string) 4 << ", ";
+						accelerationOut << (std::string) 4 << ", ";
+						accelerationOut << (std::string) 4 << ", ";
 						accelerationOut << endl;
-					}
-					else if (pkt.header == 'p'){
-						for(int i = 0 ; i < 40 ; i++){
-							pressureOut << pkt.measurement[i] << ", ";
-						}
-						pressureOut << pkt.orient_yaw << ", ";
-						pressureOut << pkt.orient_pitch << ", ";
-						pressureOut << pkt.orient_roll << ", ";
-						pressureOut << endl;
-
-
-
 
 		pressureOut.close();
 		accelerationOut.close();
