@@ -19,12 +19,11 @@ struct receive_packet {
 
 int main(void) {
 	LibSerial::SerialPort arduino;
-	ofstream pressureOut;
-	ofstream accelerationOut;
-
 	arduino.Open("/dev/ttyS0");
 	arduino.SetBaudRate(LibSerial::BaudRate::BAUD_115200);
   arduino.SetFlowControl(LibSerial::FlowControl::FLOW_CONTROL_NONE);
+	ofstream pressureOut;
+	ofstream accelerationOut;
 	uint8_t c;
 	float receiverChecksum;
 	receive_packet pkt;
