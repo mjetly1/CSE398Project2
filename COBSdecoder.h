@@ -7,7 +7,7 @@ class cobSerial {
 		void addByte(uint8_t c);
 		bool packetAvail();
 		int getPacket(char* ptrOutput);
-		static const int constMaxPacketSize = 256;
+		static const int constMaxPacketSize = 512;
 	private:
 		void decode();
 		bool bAvail;
