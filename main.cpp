@@ -29,6 +29,9 @@ int main(void) {
 	cobSerial myCOB;
 
 	while (1) {
+		pressureOut.open("pressure.csv", ios_base::app);
+		accelerationOut.open("acceleration.csv", ios_base::app);
+		caughtChecksum = 0;
 		if (arduino.IsDataAvailable()) {
 			arduino.ReadByte(c, 0);
 			myCOB.addByte(c);
