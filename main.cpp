@@ -58,7 +58,7 @@ int main(void) {
 					}
 					else if (pkt.header == 'p'){
 						for(int i = 0 ; i < 40 ; i++){
-							presssureOut << pkt.measurement[i] << ", ";
+							pressureOut << pkt.measurement[i] << ", ";
 						}
 						pressureOut << pkt.orient_yaw << ", "
 						pressureOut << pkt.orient_pitch << ", ";
@@ -69,7 +69,7 @@ int main(void) {
 				}
 			}
 
-		pressureout.close();
+		pressureOut.close();
 		accelerationOut.close();
 	}
 		return 0;
