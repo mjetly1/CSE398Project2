@@ -47,7 +47,6 @@ int main(void) {
 			for(int i = 0 ; i < 40 ; i++){
           caughtChecksum += pkt.measurement[i];
 			}
-			if (caughtChecksum = pkt.checksum){
 				if (pkt.header == 'b'){
 						for(int i = 0 ; i < 40 ; i++){
 							accelerationOut << to_string(pkt.measurement[i]) << ", ";
@@ -66,7 +65,7 @@ int main(void) {
 						pressureOut << pkt.orient_roll << ", ";
 						pressureOut << endl;
 
-					}
+
 				}
 			}
 		pressureOut.close();
