@@ -3,6 +3,8 @@
 #include <libserial/SerialStream.h>
 #include <iostream>
 #include <fstream>
+#include <string.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -17,7 +19,6 @@ struct receive_packet {
 
 int main(void) {
 	LibSerial::SerialPort arduino;
-
 	ofstream pressureOut;
 	ofstream accelerationOut;
 
@@ -44,7 +45,7 @@ int main(void) {
 			cout << "packet length " << len << endl;
 			cout << "Header: " << pkt.header << " , " << pkt.measurement[0] << endl;
 			for(int i = 0 ; i < 40 ; i++){
-
+          caughtChecksum += pkt.measurement[i];
 			}
 			if (caughtChecksum = pkt.checksum){
 				if (pkt.header == 'b'){
