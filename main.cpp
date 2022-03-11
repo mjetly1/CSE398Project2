@@ -49,7 +49,7 @@ int main(void) {
 			if (caughtChecksum = pkt.checksum){
 				if (pkt.header == 'b'){
 						for(int i = 0 ; i < 40 ; i++){
-							accelerationOut << to.string(pkt.measurement[i]) << ", ";
+							accelerationOut << to_string(pkt.measurement[i]) << ", ";
 						}
 						accelerationOut << to_string(pkt.orient_yaw) << ", ";
 						accelerationOut << to_string(pkt.orient_pitch) << ", ";
@@ -60,7 +60,7 @@ int main(void) {
 						for(int i = 0 ; i < 40 ; i++){
 							pressureOut << pkt.measurement[i] << ", ";
 						}
-						pressureOut << pkt.orient_yaw << ", "
+						pressureOut << pkt.orient_yaw << ", ";
 						pressureOut << pkt.orient_pitch << ", ";
 						pressureOut << pkt.orient_roll << ", ";
 						pressureOut << endl;
@@ -68,7 +68,6 @@ int main(void) {
 					}
 				}
 			}
-
 		pressureOut.close();
 		accelerationOut.close();
 	}
