@@ -14,7 +14,7 @@ struct receive_packet {
 	float orient_yaw;
 	float orient_pitch;
 	float orient_roll;
-	float checksum;
+	uint8_t checksum;
 };
 
 int main(void) {
